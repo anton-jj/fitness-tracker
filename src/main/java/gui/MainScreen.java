@@ -2,6 +2,8 @@ package gui;
 
 import java.util.Optional;
 
+import com.antonjj.ScreenManager;
+
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
@@ -16,31 +18,27 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MainScreen {
+	private Scene scene;
 
-	public void start(Stage primaryStage) {
+	public MainScreen(ScreenManager manager) {
 		BorderPane root = new BorderPane();
-		root.setTop(setupButtons());
-		
+		root.setTop(setupButtons(manager));
 		HBox centerElement = new HBox();
 		centerElement.getChildren().addAll(setupWeightGraph(), setupStrenghtGraph());
 
 		root.setCenter(centerElement);
-		Scene scene = new Scene(root,600,500, Color.BEIGE);
-		
-		
-		primaryStage.setTitle("fitness-tracker");
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		scene = new Scene(root,600,500, Color.BEIGE);
 
 	}
 	
-	private HBox setupButtons() {
+	private HBox setupButtons(ScreenManager manager) {
 		HBox buttonBar = new HBox(10);
 		
-		Button createProgram = new Button("create program");
+		Button createProgram = new Button("createProgram");
+		createProgram.setOnAction(e -> manager.activate("createProgram"));
 		Button logWeight = new Button("log weight");
+
 		logWeight.setOnAction(e -> {
-			
 			TextInputDialog weightInput = new TextInputDialog();
 			weightInput.setTitle("Weight log");
 			weightInput.setContentText("Eneter todays weight");
@@ -54,6 +52,7 @@ public class MainScreen {
 				}
 			});
 		});
+
 		Button logWorkout = new Button("log workout");
 		
 		buttonBar.getChildren().addAll(createProgram, logWeight, logWorkout);
@@ -82,6 +81,10 @@ public class MainScreen {
 
 		return strenghtChart;
 
+	}
+	
+	public Scene getScene() {
+		return this.scene;
 	}
 	
 	
