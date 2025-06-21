@@ -15,15 +15,15 @@ public class CreateProgramScreen {
 
 		    	VBox layout = new VBox();
 		    	
-		    	layout.getChildren().addAll(createExerciseInputGroup());
+
 		    	
 		    	Button addExercise = new Button();
 		    	layout.getChildren().add(addExercise);
-		    	
+
+		    	layout.getChildren().add(layout.getChildren().size() - 1, createExerciseInputGroup());
 		    	addExercise.setOnAction(e -> {
-		    		layout.getChildren().addAll(createExerciseInputGroup());
+		    	    layout.getChildren().add(layout.getChildren().size() - 1, createExerciseInputGroup());
 		    	});
-		    	
 		    	
 		        scene = new Scene(layout, 400, 300);
 		    }
@@ -36,8 +36,8 @@ public class CreateProgramScreen {
 		    	TextField setsField = new TextField();
 		    	setsField.setPromptText("Eneter sets for the exercise");
 		    	TextField repsField = new TextField();
+
 		    	repsField.setPromptText("Eneter reps per set");
-		    	
 		    	group.getChildren().addAll(nameField, setsField, repsField);
 		    	
 		    	return group;
