@@ -12,10 +12,7 @@ public class CreateProgramScreen {
 		    private Scene scene;
 
 		    public CreateProgramScreen(ScreenManager manager) {
-
 		    	VBox layout = new VBox();
-		    	
-
 		    	
 		    	Button addExercise = new Button();
 		    	layout.getChildren().add(addExercise);
@@ -41,7 +38,6 @@ public class CreateProgramScreen {
 		    	group.getChildren().addAll(nameField, setsField, repsField);
 		    	
 		    	return group;
-		    	
 		    	
 		    }
 
