@@ -9,6 +9,8 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
+		FileManager files = new FileManager();
+
 		ScreenManager manager = new ScreenManager(primaryStage);
 		MainScreen main = new MainScreen(manager);
 		CreateProgramScreen createProgram = new CreateProgramScreen(manager);
