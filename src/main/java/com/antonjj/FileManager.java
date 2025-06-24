@@ -4,8 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import models.Program;
+import models.WeightEntry;
+import models.Workout;
 
 public class FileManager {
 	private static String dirr = "fitness_data";
@@ -20,9 +30,8 @@ public class FileManager {
 	public FileManager() {
 		setUpObjectMapper();
 		setupDataDirectory();
-		System.out.println(path);
+		setUpFiles();
 	}
-
 
 	private void setupDataDirectory() {
 		try {
@@ -34,18 +43,74 @@ public class FileManager {
 		}
 	}
 
+	private void setUpFiles() {
+		String[] files = {programs_file, workouts_file, weight_log_file };
+		for(int i = 0; i < files.length; i++) {
+			Path filePath = path.resolve(files[i]);
+			if(!Files.exists(filePath)) {
+				try {
+					Files.createFile(filePath);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	private void setUpObjectMapper() {
 		objectMapper = new ObjectMapper();
 		
 	}
 	
-	public void savePrograms(List <Program> programs) {
-		Path filePath = path.resolve(program_file);
-		if (!Files.exists(filePath)) {
-			Files.createFile(filePath);
-		}
+	public void savePrograms(List <Program> programs) throws StreamWriteException, DatabindException, IOException {
+		Path filePath = path.resolve(programs_file);
 		objectMapper.writeValue(filePath.toFile(),programs);
+	}
+	
+	public ArrayList<Program> loadProgram() throws StreamReadException, DatabindException, IOException {
+		Path filePath = path.resolve(workouts_file);
+		if(!Files.exists(filePath )) {
+			return new ArrayList<>();
+		}
+		Program[] programs = objectMapper.readValue(filePath.toFile(), Program[].class);
+		return (ArrayList<Program>) Arrays.asList(programs);
+	}
+	
+	public void saveWorkout(List<Workout> workouts) throws StreamWriteException, DatabindException, IOException {
+		Path filePath = path.resolve(workouts_file);
+		objectMapper.writeValue(filePath.toFile(), workouts);
+	}
+	
+	public ArrayList<Workout> loadWorkouts() throws StreamReadException, DatabindException, IOException {
+		Path filePath = path.resolve(workouts_file);
+		if(!Files.exists(filePath)) {
+			return new ArrayList<>();
+		}
+		Workout[] workouts = objectMapper.readValue(filePath.toFile(), Workout[].class);
+		return (ArrayList<Workout>) Arrays.asList(workouts);
+	}
+	
+	public void saveWheightEntry(List<WeightEntry> weightLog) throws StreamWriteException, DatabindException, IOException {
+		Path filePath = path.resolve(weight_log_file);
+		objectMapper.writeValue(filePath.toFile(), weightLog);
 		
 	}
+	
+	public ArrayList<WeightEntry> loadWeightLog() {
+		Path filePath = path.resolve(weight_log_file);
+		WeightEntry[] weightLog = Null;
+
+		if(!Files.exists(filePath)) {
+			return new ArrayList<>();
+		}
+
+		try {
+			weightLog = objectMapper.readValue(filePath.toFile(), WeightEntry[].class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return (ArrayList<WeightEntry>) Arrays.asList(weightLog);
+	}
+
 }
+

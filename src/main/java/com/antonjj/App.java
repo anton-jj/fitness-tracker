@@ -2,6 +2,9 @@ package com.antonjj;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
 import gui.CreateProgramScreen;
 import gui.MainScreen;
 
@@ -10,6 +13,14 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 
 		FileManager files = new FileManager();
+		try {
+			files.loadProgram();
+			files.loadWeightLog();
+			files.loadWorkouts();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		ScreenManager manager = new ScreenManager(primaryStage);
 		MainScreen main = new MainScreen(manager);

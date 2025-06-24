@@ -10,15 +10,15 @@ public class Program {
 	@Getter @Setter private ArrayList<Workout> workouts;
 	
 	public Program() {
-		this.exercises = new ArrayList<>();
+		this.workouts = new ArrayList<>();
 	}
 	
-	public void addExercise(Exercise exercise) {
-		this.exercises.add(exercise);
+	public void addExercise(Workout workout) {
+		this.workouts.add(workout);
 	}
 	
-	public void removeExercise(Exercise exercise) {
-		this.exercises.remove(exercise);
+	public void removeExercise(Workout workout) {
+		this.workouts.remove(workout);
 	}
 	
 }
