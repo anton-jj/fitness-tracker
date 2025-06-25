@@ -1,5 +1,6 @@
 package gui;
 
+import com.antonjj.FitnessService;
 import com.antonjj.ScreenManager;
 
 import javafx.scene.Scene;
@@ -11,7 +12,7 @@ import javafx.scene.layout.VBox;
 public class CreateProgramScreen {
 		    private Scene scene;
 
-		    public CreateProgramScreen(ScreenManager manager) {
+		    public CreateProgramScreen(ScreenManager manager, FitnessService fitnessService) {
 		    	VBox layout = new VBox();
 		    	
 		    	Button addExercise = new Button();

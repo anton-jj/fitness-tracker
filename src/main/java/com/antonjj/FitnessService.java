@@ -1,13 +1,65 @@
 package com.antonjj;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.Program;
+import models.WeightEntry;
 import models.Workout;
 
 public class FitnessService {
 	private FileManager fileManager;
 	private List<Program> programs;
 	private List<Workout> workouts;
+	private List<WeightEntry> weightLog;
+	private Map<String, Object> settings;
+	
+	
+	public FitnessService(){
+		this.fileManager = new FileManager();
+		loadAllData();
+	}
+	
+	private void loadAllData() {
+		try {
+			this.programs = fileManager.loadProgram();
+			this.workouts = fileManager.loadWorkouts();
+			this.weightLog = fileManager.loadWeightLog();
+			this.settings = fileManager.loadSettings();
+		} catch (IOException e) {
+			this.programs = new ArrayList<>();
+			this.workouts = new ArrayList<>();
+			this.weightLog = new ArrayList<>();
+			e.printStackTrace();
+		}
+	}
+	
+	public void addWeightEntry(Double weight) {
+		
+		if (weight <= 0) {
+			System.out.println("most be positive");
+			return;
+		}
+		
+		WeightEntry today = new WeightEntry(new Date(), weight);
+		
+		weightLog.add(today);
+		
+		try {
+			fileManager.saveWheightEntry(weightLog);
+		} catch(IOException e) {
+			System.out.println("failed to save");
+			weightLog.remove(today);
+
+		}
+
+	}
+		 public List<WeightEntry> getWeightHistory() {
+		        return new ArrayList<>(weightLog);
+		    }
 
 }

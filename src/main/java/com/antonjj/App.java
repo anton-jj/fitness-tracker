@@ -13,18 +13,11 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 
 		FileManager files = new FileManager();
-		try {
-			files.loadProgram();
-			files.loadWeightLog();
-			files.loadWorkouts();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+		FitnessService fitnessService = new FitnessService();
 		ScreenManager manager = new ScreenManager(primaryStage);
-		MainScreen main = new MainScreen(manager);
-		CreateProgramScreen createProgram = new CreateProgramScreen(manager);
+		MainScreen main = new MainScreen(manager, fitnessService);
+		CreateProgramScreen createProgram = new CreateProgramScreen(manager, fitnessService);
 		
 		manager.addScreen("main", main.getScene());
 		manager.addScreen("createProgram", createProgram.getScene());

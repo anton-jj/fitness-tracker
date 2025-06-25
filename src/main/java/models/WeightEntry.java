@@ -11,4 +11,5 @@ public class WeightEntry {
 		this.date = date;
 		this.weight = weight;
 	}
+    public WeightEntry() {} // Jackson needs default constructor
 }

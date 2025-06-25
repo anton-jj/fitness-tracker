@@ -2,6 +2,7 @@ package gui;
 
 import java.util.Optional;
 
+import com.antonjj.FitnessService;
 import com.antonjj.ScreenManager;
 
 import javafx.scene.Scene;
@@ -20,9 +21,9 @@ import javafx.stage.Stage;
 public class MainScreen {
 	private Scene scene;
 
-	public MainScreen(ScreenManager manager) {
+	public MainScreen(ScreenManager manager, FitnessService fitnessService) {
 		BorderPane root = new BorderPane();
-		root.setTop(setupButtons(manager));
+		root.setTop(setupButtons(manager, fitnessService));
 		HBox centerElement = new HBox();
 		centerElement.getChildren().addAll(setupWeightGraph(), setupStrenghtGraph());
 
@@ -31,7 +32,7 @@ public class MainScreen {
 
 	}
 	
-	private HBox setupButtons(ScreenManager manager) {
+	private HBox setupButtons(ScreenManager manager, FitnessService fitnessService) {
 		HBox buttonBar = new HBox(10);
 		
 		Button createProgram = new Button("createProgram");
@@ -46,7 +47,7 @@ public class MainScreen {
 			result.ifPresent(weight -> {
 				try {
 					double weightD = Double.parseDouble(weight);
-					System.out.println(weight);
+					fitnessService.addWeightEntry(weightD);
 				} catch(NumberFormatException f) {
 					System.out.println("failed to parse to double");
 				}
