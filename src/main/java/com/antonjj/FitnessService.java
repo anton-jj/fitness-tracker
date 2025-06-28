@@ -34,25 +34,25 @@ public class FitnessService {
 			this.programs = new ArrayList<>();
 			this.workouts = new ArrayList<>();
 			this.weightLog = new ArrayList<>();
+			this.settings = new HashMap<>();
 			e.printStackTrace();
 		}
 	}
 	
 	public void addWeightEntry(Double weight) {
-		
 		if (weight <= 0) {
 			System.out.println("most be positive");
 			return;
 		}
 		
+
 		WeightEntry today = new WeightEntry(new Date(), weight);
-		
 		weightLog.add(today);
-		
 		try {
 			fileManager.saveWheightEntry(weightLog);
 		} catch(IOException e) {
 			System.out.println("failed to save");
+	        e.printStackTrace();
 			weightLog.remove(today);
 
 		}
@@ -61,5 +61,15 @@ public class FitnessService {
 		 public List<WeightEntry> getWeightHistory() {
 		        return new ArrayList<>(weightLog);
 		    }
+
+		 public void addProgram(Program program) {
+			 this.programs.add(program);
+			 try {
+				fileManager.savePrograms(programs);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		 }
 
 }

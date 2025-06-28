@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Program {
-	@Getter @Setter private String name;
-	@Getter @Setter private ArrayList<Workout> workouts;
+	private String name;
+	private ArrayList<Workout> workouts;
 	
 	public Program() {
 		this.workouts = new ArrayList<>();
@@ -19,6 +19,15 @@ public class Program {
 	
 	public void removeExercise(Workout workout) {
 		this.workouts.remove(workout);
+	}
+
+	public void setName(String programName) {
+		this.name = programName;
+	}
+
+	public void addWorkout(Workout workout) {
+		workouts.add(workout);
+		
 	}
 	
 }

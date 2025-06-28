@@ -13,4 +13,13 @@ public class Workout {
 	public Workout () {
 		this.exercises = new ArrayList<>();
 	}
+
+	public void setName(String workoutName) {
+		this.name = workoutName;
+	}
+
+	public void setExercises(ArrayList arrayList) {
+		this.exercises = arrayList;
+	}
+
 }

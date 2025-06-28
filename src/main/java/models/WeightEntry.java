@@ -1,15 +1,21 @@
-package models;
-
+package models;		
 import java.util.Date;
 
-public class WeightEntry {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-	private Date date;
-	private Double weight;
-	
-	public WeightEntry(Date date, Double weight) {
-		this.date = date;
-		this.weight = weight;
-	}
-    public WeightEntry() {} // Jackson needs default constructor
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class WeightEntry {
+    private Date date;
+    private Double weight;
+
+    public WeightEntry(Date date, Double weight) {
+        this.date = date;
+        this.weight = weight;
+    }
 }

@@ -10,10 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import models.Program;
 import models.WeightEntry;
@@ -47,7 +51,7 @@ public class FileManager {
 	}
 
 	private void setUpFiles() {
-		String[] files = {programs_file, workouts_file, weight_log_file, settings_file };
+		String[] files = {programs_file, workouts_file, weight_log_file};
 		for(int i = 0; i < files.length; i++) {
 			Path filePath = path.resolve(files[i]);
 			if(!Files.exists(filePath)) {
@@ -59,12 +63,26 @@ public class FileManager {
 				}
 			}
 		}
+		Path Settings = path.resolve(settings_file);
+		if (!Files.exists(Settings)) {
+			try {
+				Files.createFile(Settings);
+				Files.write(Settings, "{}".getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private void setUpObjectMapper() {
 		objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+		objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 		
-	}
+		 objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+		    objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.PUBLIC_ONLY);
+		    objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.PUBLIC_ONLY);
+		}
 	
 	public void savePrograms(List <Program> programs) throws StreamWriteException, DatabindException, IOException {
 		Path filePath = path.resolve(programs_file);
@@ -103,7 +121,7 @@ public class FileManager {
 	public ArrayList<WeightEntry> loadWeightLog() throws StreamReadException, DatabindException, IOException {
 		Path filePath = path.resolve(weight_log_file);
 
-		if(!Files.exists(filePath)) {
+		if(!Files.exists(filePath) || Files.size(filePath) == 0) {
 			return new ArrayList<>();
 		}
 
