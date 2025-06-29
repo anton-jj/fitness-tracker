@@ -37,14 +37,14 @@ public class MainScreen {
 		
 		Button viewPrograms = new Button("View Programs");
 		viewPrograms.setOnAction(e -> manager.activate("programsScreen"));
-		Button createProgram = new Button("createProgram");
+		Button createProgram = new Button("Create program");
 		createProgram.setOnAction(e -> manager.activate("createProgram"));
-		Button logWeight = new Button("log weight");
+		Button logWeight = new Button("Log weight");
 
 		logWeight.setOnAction(e -> {
 			TextInputDialog weightInput = new TextInputDialog();
 			weightInput.setTitle("Weight log");
-			weightInput.setContentText("Eneter todays weight");
+			weightInput.setContentText("Enter todays weight");
 			Optional<String> result = weightInput.showAndWait();
 			result.ifPresent(weight -> {
 				try {

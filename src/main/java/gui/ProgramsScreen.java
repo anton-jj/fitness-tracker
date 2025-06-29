@@ -59,11 +59,9 @@ public class ProgramsScreen {
         title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
 
         Button backButton = new Button("← Back to Main");
-        backButton.setStyle("-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-weight: bold;");
         backButton.setOnAction(e -> screenManager.activate("main"));
 
         Button refreshButton = new Button("Refresh");
-        refreshButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;");
         refreshButton.setOnAction(e -> refreshPrograms());
 
         HBox.setHgrow(title, Priority.ALWAYS);
@@ -83,7 +81,6 @@ public class ProgramsScreen {
         if (programs.isEmpty()) {
             Label noPrograms = new Label("No programs found. Create your first program!");
             noPrograms.setFont(Font.font("Arial", 16));
-            noPrograms.setStyle("-fx-text-fill: #666;");
             programsContainer.getChildren().add(noPrograms);
         } else {
             for (Program program : programs) {
@@ -94,8 +91,6 @@ public class ProgramsScreen {
 
     private VBox createProgramCard(Program program) {
         VBox card = new VBox(10);
-        card.setStyle("-fx-border-color: #ddd; -fx-border-width: 2; -fx-padding: 15; " +
-                "-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5;");
 
         // Program header
         HBox header = new HBox(10);
@@ -106,10 +101,8 @@ public class ProgramsScreen {
 
         Label workoutCount = new Label("(" + program.getWorkouts().size() + " workouts)");
         workoutCount.setFont(Font.font("Arial", 12));
-        workoutCount.setStyle("-fx-text-fill: #666;");
 
         Button deleteButton = new Button("Delete");
-        deleteButton.setStyle("-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 10;");
         deleteButton.setOnAction(e -> deleteProgram(program));
 
         HBox.setHgrow(programName, Priority.ALWAYS);
@@ -120,16 +113,13 @@ public class ProgramsScreen {
         for (Workout workout : program.getWorkouts()) {
             HBox workoutRow = new HBox(10);
             workoutRow.setAlignment(Pos.CENTER_LEFT);
-            workoutRow.setStyle("-fx-padding: 8; -fx-background-color: #f5f5f5; -fx-background-radius: 3;");
 
             Label workoutName = new Label("• " + workout.getName());
             workoutName.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
             Label exerciseCount = new Label(workout.getExercises().size() + " exercises");
-            exerciseCount.setStyle("-fx-text-fill: #666;");
 
             Button startWorkoutButton = new Button("Start Workout");
-            startWorkoutButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;");
             startWorkoutButton.setOnAction(e -> startWorkout(workout));
 
             HBox.setHgrow(workoutName, Priority.ALWAYS);
