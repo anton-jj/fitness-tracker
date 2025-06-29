@@ -13,9 +13,4 @@ import lombok.Setter;
 public class WeightEntry {
     private Date date;
     private Double weight;
-
-    public WeightEntry(Date date, Double weight) {
-        this.date = date;
-        this.weight = weight;
-    }
 }

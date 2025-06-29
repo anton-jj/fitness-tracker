@@ -2,24 +2,30 @@ package models;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Setter
+@Getter
 public class Workout {
-	@Getter @Setter private String name;
-	@Getter @Setter private ArrayList<Exercise> exercises;
+	@JsonProperty("name")
+	private String name;
 	
-	public Workout () {
+	@JsonProperty("exercises")
+	private ArrayList<Exercise> exercises;
+	
+	public Workout() {
 		this.exercises = new ArrayList<>();
 	}
-
-	public void setName(String workoutName) {
-		this.name = workoutName;
+	
+	public void addExercise(Exercise exercise) {
+		this.exercises.add(exercise);
 	}
-
-	public void setExercises(ArrayList arrayList) {
-		this.exercises = arrayList;
+	
+	public void removeExercise(Exercise exercise) {
+		this.exercises.remove(exercise);
 	}
-
 }

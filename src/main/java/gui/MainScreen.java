@@ -35,6 +35,8 @@ public class MainScreen {
 	private HBox setupButtons(ScreenManager manager, FitnessService fitnessService) {
 		HBox buttonBar = new HBox(10);
 		
+		Button viewPrograms = new Button("View Programs");
+		viewPrograms.setOnAction(e -> manager.activate("programsScreen"));
 		Button createProgram = new Button("createProgram");
 		createProgram.setOnAction(e -> manager.activate("createProgram"));
 		Button logWeight = new Button("log weight");
@@ -56,7 +58,7 @@ public class MainScreen {
 
 		Button logWorkout = new Button("log workout");
 		
-		buttonBar.getChildren().addAll(createProgram, logWeight, logWorkout);
+		buttonBar.getChildren().addAll(createProgram, logWeight, logWorkout, viewPrograms);
 		return buttonBar;
 	}
 	

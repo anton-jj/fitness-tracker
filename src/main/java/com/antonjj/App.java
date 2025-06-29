@@ -1,5 +1,6 @@
 package com.antonjj;
 
+import gui.ProgramsScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,12 +17,15 @@ public class App extends Application {
 
 		FitnessService fitnessService = new FitnessService();
 		ScreenManager manager = new ScreenManager(primaryStage);
-		MainScreen main = new MainScreen(manager, fitnessService);
+		ProgramsScreen programsScreen = new ProgramsScreen(manager, fitnessService);
 		CreateProgramScreen createProgram = new CreateProgramScreen(manager, fitnessService);
+		MainScreen main = new MainScreen(manager, fitnessService);
+
 		
 		manager.addScreen("main", main.getScene());
 		manager.addScreen("createProgram", createProgram.getScene());
-		
+		manager.addScreen("programsScreen", programsScreen.getScene());
+
 		manager.activate("main");
 		
 		primaryStage.setTitle("fitness tracker");

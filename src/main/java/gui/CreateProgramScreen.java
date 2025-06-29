@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Exercise;
-import models.Program;
 import models.Workout;
 
 public class CreateProgramScreen {
@@ -120,15 +119,10 @@ public class CreateProgramScreen {
         Workout workout = new Workout();
         workout.setName(workoutName);
         workout.setExercises(new ArrayList<>(exercises));
-        
-        // Create program
-        Program program = new Program();
-        program.setName(programName);
-        program.addWorkout(workout);
-        
+
         // Save program
         try {
-            fitnessService.addProgram(program);
+            fitnessService.addWorkout(workout);
             return true;
         } catch (Exception e) {
             showErrorAlert("Failed to save program: " + e.getMessage());

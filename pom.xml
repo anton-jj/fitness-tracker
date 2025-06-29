@@ -25,11 +25,6 @@
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
 <dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <version>1.18.38</version>
-</dependency>
-<dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-databind</artifactId>
     <version>2.15.2</version>
@@ -39,6 +34,12 @@
     <artifactId>jackson-datatype-jsr310</artifactId>
     <version>2.15.2</version>
 </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.38</version>
+            <scope>provided</scope> <!-- Add this line -->
+        </dependency>
     </dependencies>
 
     <build>
@@ -49,6 +50,13 @@
                 <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                 <release>11</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.38</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
             <plugin>

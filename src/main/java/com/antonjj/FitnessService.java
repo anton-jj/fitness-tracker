@@ -72,4 +72,49 @@ public class FitnessService {
 			
 		 }
 
+		 public String getCurrentProgram() {
+			// TODO Auto-generated method stub
+			return null;
+		 }
+
+		 public void removeProgram(Program program) {
+		if(programs.remove(program)){
+			try {
+				fileManager.savePrograms(programs);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		 }
+
+		 public void setCurrentProgram(Object name) {
+
+		 }
+
+	public List<Program> getAllPrograms() {
+		return programs;
+	}
+
+	public List<Program> getPrograms() {
+		return new ArrayList<>(programs);
+	}
+
+	public void addWorkout(Workout workout) {
+		if (workout == null || workout.getName() == null || workout.getName().trim().isEmpty()) {
+			System.out.println("invalid workout");
+			return;
+		}
+		workouts.add(workout);
+
+		try {
+			fileManager.saveWorkout(workouts);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void saveWorkout(Workout workout) {
+
+	}
 }
