@@ -57,7 +57,6 @@ public class CreateProgramScreen {
         scrollPane.setFitToWidth(true);
         scrollPane.setPrefHeight(500);
 
-        //first workout by default
         addWorkoutInput();
 
         //buttons
@@ -83,7 +82,7 @@ public class CreateProgramScreen {
 
         buttonBox.getChildren().addAll(addWorkoutBtn, saveBtn, cancelBtn);
 
-        mainLayout.getChildren().addAll(title, programLabel, programNameField,
+        mainLayout.getChildren().addAll(title, programNameField,
                 workoutLabel, scrollPane, buttonBox);
 
         scene = new Scene(mainLayout, 600, 600);
@@ -92,7 +91,7 @@ public class CreateProgramScreen {
     private void addWorkoutInput() {
         WorkoutInputGroup workoutGroup = new WorkoutInputGroup();
         workoutInput.add(workoutGroup);
-        mainLayout.getChildren().add(workoutGroup.getContainer());
+        workoutsContainer.getChildren().add(workoutGroup.getContainer());
     }
     
     private boolean validateAndSaveProgram(FitnessService fitnessService) {
@@ -104,8 +103,8 @@ public class CreateProgramScreen {
         }
 
         List<Workout> workouts = new ArrayList<>();
-        for (WorkoutInputGroup inputGroup : workoutInput) {
-            Workout workout = inputGroup.createWorkout();
+        for (WorkoutInputGroup workoutGroup : workoutInput) {
+            Workout workout = workoutGroup.createWorkout();
             if (workout != null) {
                 workouts.add(workout);
             }
@@ -125,7 +124,7 @@ public class CreateProgramScreen {
             fitnessService.addProgram(program);
             return true;
         } catch (Exception e) {
-            showErrorAlert("failed to save fowkout" +  e.getMessage());
+            showErrorAlert("failed to save program" +  e.getMessage());
             return false;
         }
     }
@@ -196,7 +195,7 @@ public class CreateProgramScreen {
 
             addExerciseInput();
 
-            container.getChildren().addAll(header, exerciseLabel, exerciseContainer);
+            container.getChildren().addAll(header, exerciseLabel, exerciseContainer, addExerciseButton);
 
         }
 
